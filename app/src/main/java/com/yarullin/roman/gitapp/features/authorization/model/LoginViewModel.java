@@ -68,10 +68,6 @@ public class LoginViewModel extends BaseLoginViewModel<LoginViewState> {
         login();
     }
 
-    public void logoutClicked() {
-        logout();
-    }
-
     static class PartialState {
         private final boolean skipLogin;
         private final boolean inProgress;
