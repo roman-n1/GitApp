@@ -28,6 +28,8 @@ import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class SearchRepoActivity extends BaseLoginActivity {
+    private static final String SEARCH_KEY = "search_key";
+
     @BindView(R.id.pull_to_refresh) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view) RecyclerView repoRecyclerView;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
@@ -35,9 +37,9 @@ public class SearchRepoActivity extends BaseLoginActivity {
     private LinearLayoutManager layoutManager;
     private Menu menu;
 
-    SearchView searchView;
-
+    private SearchView searchView;
     private SearchRepoViewModel viewModel;
+    private String savedSearchQuery;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, SearchRepoActivity.class);
@@ -53,6 +55,9 @@ public class SearchRepoActivity extends BaseLoginActivity {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(SearchRepoViewModel.class);
         initRecycler();
+        if (savedInstanceState != null) {
+            savedSearchQuery = savedInstanceState.getString(SEARCH_KEY);
+        }
     }
 
     @Override
@@ -96,11 +101,25 @@ public class SearchRepoActivity extends BaseLoginActivity {
         searchView = (SearchView) searchItem.getActionView();
         int options = searchView.getImeOptions();
         searchView.setImeOptions(options | EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+
+        if (savedSearchQuery != null && !savedSearchQuery.isEmpty()) {
+            searchView.setIconified(false);
+            searchView.setQuery(savedSearchQuery, true);
+            searchView.clearFocus();
+        }
+
         RxSearchView.queryTextChanges(searchView)
+                .skipInitialValue()
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .filter(item -> item.length() > 2)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(entered -> viewModel.search(entered.toString()));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(SEARCH_KEY, searchView.getQuery().toString());
     }
 
     @Override
