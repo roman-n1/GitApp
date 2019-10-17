@@ -1,6 +1,6 @@
 package com.yarullin.roman.gitapp.features.search.model;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.yarullin.roman.gitapp.application.GitApp;
 import com.yarullin.roman.gitapp.base.model.BaseLoginViewModel;

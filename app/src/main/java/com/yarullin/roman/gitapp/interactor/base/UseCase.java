@@ -1,6 +1,6 @@
 package com.yarullin.roman.gitapp.interactor.base;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import io.reactivex.Flowable;
 

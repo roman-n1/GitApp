@@ -1,38 +1,38 @@
 package com.yarullin.roman.gitapp.features.search.ui;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.jakewharton.rxbinding3.widget.RxSearchView;
 import com.yarullin.roman.gitapp.R;
 import com.yarullin.roman.gitapp.base.model.BaseLoginViewModel;
 import com.yarullin.roman.gitapp.base.ui.BaseLoginActivity;
 import com.yarullin.roman.gitapp.features.search.model.SearchRepoViewModel;
 import com.yarullin.roman.gitapp.features.search.state.SearchRepoViewState;
-import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView;
 
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class SearchRepoActivity extends BaseLoginActivity {
     private static final String SEARCH_KEY = "search_key";
 
-    @BindView(R.id.pull_to_refresh) SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.recycler_view) RecyclerView repoRecyclerView;
-    @BindView(R.id.progress_bar) ProgressBar progressBar;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView repoRecyclerView;
+    private ProgressBar progressBar;
     private SearchRepoAdapter adapter;
     private LinearLayoutManager layoutManager;
     private Menu menu;
@@ -53,6 +53,11 @@ public class SearchRepoActivity extends BaseLoginActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        swipeRefreshLayout = findViewById(R.id.pull_to_refresh);
+        repoRecyclerView = findViewById(R.id.recycler_view);
+        progressBar = findViewById(R.id.progress_bar);
+
         viewModel = ViewModelProviders.of(this).get(SearchRepoViewModel.class);
         initRecycler();
         if (savedInstanceState != null) {

@@ -1,6 +1,6 @@
 package com.yarullin.roman.gitapp.interactor;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.yarullin.roman.gitapp.interactor.base.UseCase;
 

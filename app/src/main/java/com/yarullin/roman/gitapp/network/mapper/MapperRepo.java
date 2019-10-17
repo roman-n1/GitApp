@@ -1,6 +1,6 @@
 package com.yarullin.roman.gitapp.network.mapper;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.yarullin.roman.gitapp.network.responce.Repo;
 import com.yarullin.roman.gitapp.persistence.entity.ModelRepository;

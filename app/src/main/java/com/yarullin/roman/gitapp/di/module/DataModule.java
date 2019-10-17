@@ -1,6 +1,6 @@
 package com.yarullin.roman.gitapp.di.module;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.yarullin.roman.gitapp.BuildConfig;
 import com.yarullin.roman.gitapp.network.GitHubRestApi;

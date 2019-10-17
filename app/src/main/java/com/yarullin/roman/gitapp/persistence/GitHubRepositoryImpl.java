@@ -1,6 +1,6 @@
 package com.yarullin.roman.gitapp.persistence;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.yarullin.roman.gitapp.persistence.base.GitHubRepository;
 import com.yarullin.roman.gitapp.persistence.entity.ModelRepositoryList;

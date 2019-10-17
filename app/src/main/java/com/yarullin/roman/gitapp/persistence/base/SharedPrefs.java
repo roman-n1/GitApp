@@ -1,6 +1,7 @@
 package com.yarullin.roman.gitapp.persistence.base;
 
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 public interface SharedPrefs {
 
